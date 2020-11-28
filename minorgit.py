@@ -10,6 +10,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
+
 root = Tk()
 root.minsize(1200, 680)
 root.maxsize(1200, 680)
@@ -37,6 +38,9 @@ root.grid_rowconfigure(0, weight=3)
 root.grid_rowconfigure(1, weight=1)
 
 
+
+
+
 def maleriagraph(e):
     f3 = Frame(root, background="bisque", width=100, height=100, borderwidth=6, relief=SUNKEN)
     f3.grid(row=0, column=2, sticky="nsew")
@@ -57,33 +61,35 @@ def maleriagraph(e):
     ax1 = fig.add_subplot(2, 1, 2)
     ax2 = fig.add_subplot(2, 1, 2)
     ax0.plot(xvalues, yvalues)
+    #thanks you LL
     ax2.bar(z, list(df.iloc[:, 2]))
     ax1.bar(z, list(df.iloc[:, 3]), color='maroon')
     plt.ylabel('cases in million')
     plt.xlabel('years')
     bar1 = FigureCanvasTkAgg(fig, f3)
     bar1.get_tk_widget().pack()
-    # Label(f4, text="   NO. OF DEATH VS YEAR ", padx=5, bg="pink").pack()
-    # (f4, text="   CASE IN MILLION VS YEAR ", padx=5, bg="pink").pack()
-    mycanvas = Canvas(f4, bg='pink', width=300, height=100)
+    #Label(f4, text="   NO. OF DEATH VS YEAR ", padx=5, bg="pink").pack()
+    #(f4, text="   CASE IN MILLION VS YEAR ", padx=5, bg="pink").pack()
+    mycanvas = Canvas(f4,bg='pink',  width=300,height=100)
     mycanvas.grid(sticky="nsew")
     l2 = Label(mycanvas, text="          NO. OF DEATH   VS   YEAR  GRAPH     ", padx=50)
     l2.grid(row=0, column=3, padx=50, pady=5)
-    l3 = Label(mycanvas, text="       CASE IN MILLION   VS   YEAR  GRAPH    ", padx=50)
+    l3 = Label(mycanvas, text="       CASE IN MILLION   VS   YEAR  GRAPH    " , padx=50)
     l3.grid(row=2, column=3, padx=50, pady=5)
     l4 = Label(mycanvas, text="   RED DEFINE  P.Falciparum  ", padx=50, width=8)
     l4.grid(row=1, column=1, padx=50, pady=5)
-    l5 = Label(mycanvas, text="       BLUE DEFINE TOTAL MALERIA CASES      ", padx=50)
+    l5 = Label(mycanvas, text="       BLUE DEFINE TOTAL MALERIA CASES      " , padx=50)
     l5.grid(row=4, column=1, padx=50, pady=5)
     mycanvas.create_line(332, 47, 535, 85)
     mycanvas.create_line(438, 116, 535, 85)
 
+
     pass
 
-
 def maleriadata(e):
-    f3 = Frame(root, background="bisque", width=100, height=150, borderwidth=6, relief=SUNKEN)
-    f3.grid(row=0, column=2, rowspan=2, sticky="nsew")
+
+    f3 = Frame(root, background="bisque", width=100,height=150, borderwidth=6, relief=SUNKEN)
+    f3.grid(row=0, column=2, rowspan=2,sticky="nsew")
     f4 = Frame(root, background="pink", width=100, height=100, borderwidth=6, relief=SUNKEN)
     f4.grid(row=1, column=2, sticky="nsew")
 
@@ -106,6 +112,7 @@ def maleriadata(e):
     treev.column("6", width=50, anchor='c')
     treev.column("7", width=50, anchor='c')
 
+
     # Assigning the heading names to the
     # respective columns
     treev.heading("1", text="Year")
@@ -116,21 +123,21 @@ def maleriadata(e):
     treev.heading("6", text="API")
     treev.heading("7", text="Deaths")
     df = pd.read_csv("/Users/vaibhavkansal/PycharmProjects/minor/maleria pdf.csv")
-    q = []
-    for i in range(0, len(df)):
-        q.append(list(df.iloc[i, :]))
-    for w in range(0, len(q)):
-        q[w][0] = int(q[w][0])
-        q[w][1] = int(q[w][1])
-        q[w][6] = int(q[w][6])
+    q=[]
+    for i in range(0,len(df)):
+        q.append(list(df.iloc[i,:]))
+    for w in range(0,len(q)):
+        q[w][0]=int(q[w][0])
+        q[w][1]=int(q[w][1])
+        q[w][6]=int(q[w][6])
 
     for i in q:
-        treev.insert("", 'end', values=i)
+        treev.insert("",'end',values=i)
 
     def clickedrow(e):
         item = treev.identify_row(e.y)
         a = treev.item(item, 'values')
-        a = list(a)
+        a=list(a)
         print(a)
         f4 = Frame(root, background="pink", width=80, borderwidth=6, relief=SUNKEN)
         f4.grid(row=1, column=2, sticky="nsew")
@@ -170,13 +177,15 @@ def maleriadata(e):
         e6.insert(0, a[5])
         e7.insert(0, a[6])
 
-    treev.bind('<Double-Button-1>', clickedrow)
+
+    treev.bind('<Double-Button-1>',clickedrow)
 
     pass
 
-
 def maleriapopulation(e):
-    tsmg.showinfo("Note", "Population is shown in 100 million while maleria & p falciparum are shown in million")
+
+
+    tsmg.showinfo("Note","Population is shown in 100 million while maleria & p falciparum are shown in million")
 
     f3 = Frame(root, background="bisque", width=100, height=100, borderwidth=6, relief=SUNKEN)
     f3.grid(row=0, column=2, sticky="nsew")
@@ -194,10 +203,10 @@ def maleriapopulation(e):
     bar1 = FigureCanvasTkAgg(fig, f4)
     bar1.get_tk_widget().pack()
 
-    pinm = list(df.iloc[:, 1])
+    pinm=list(df.iloc[:,1])
     for i in pinm:
-        re = pinm.index(i)
-        pinm[re] = i / 100000
+        re=pinm.index(i)
+        pinm[re]=i/100000
     plt.bar(z, pinm)
     plt.bar(z, list(df.iloc[:, 2]), color='maroon')
 
@@ -208,39 +217,36 @@ def maleriapopulation(e):
     bar2 = FigureCanvasTkAgg(fig1, f3)
     bar2.get_tk_widget().pack()
 
-    plt.bar(z, pinm, color="orange")
-    plt.bar(z, list(df.iloc[:, 3]), color='maroon')
-
+    plt.bar(z, pinm,color="orange")
+    plt.bar(z, list(df.iloc[:, 3]),color='maroon')
     def esc(e):
         f3.destroy()
         f4.destroy()
-
-    root.bind('<Double-Button-1>', esc)
+    root.bind('<Double-Button-1>',esc)
 
 
 def triel(e):
     f3.grid_forget()
     pass
 
-
 def maleriatype(e):
     f3 = Frame(root, background="bisque", width=100, height=100, borderwidth=6, relief=SUNKEN)
     f3.grid(row=0, column=2, sticky="nsew")
     f4 = Frame(root, background="pink", width=100, height=100, borderwidth=6, relief=SUNKEN)
     f4.grid(row=1, column=2, sticky="nsew")
-    df = pd.read_csv("/Users/vaibhavkansal/PycharmProjects/minor/maleria2.csv")
-    a = list(df.iloc[:, 0])
-    b = list(df.iloc[:, 5])
-    c = df.iloc[:, 6]
-    d = df.iloc[:, 7]
-    e = df.iloc[:, 8]
+    df=pd.read_csv("/Users/vaibhavkansal/PycharmProjects/minor/maleria2.csv")
+    a=list(df.iloc[:,0])
+    b=list(df.iloc[:,5])
+    c=df.iloc[:,6]
+    d=df.iloc[:,7]
+    e=df.iloc[:,8]
     f = plt.figure()
-    ax = f.add_subplot()
+    ax=f.add_subplot()
     ax.yaxis.tick_right()
-    plt.plot(a, b, 'r', label="ABER")
-    plt.plot(a, c, 'g', label="API")
-    plt.plot(a, d, 'b', label="SPR")
-    plt.plot(a, e, 'y', label="SFR")
+    plt.plot(a,b,'r',label="ABER")
+    plt.plot(a,c,'g',label ="API")
+    plt.plot(a,d,'b',label ="SPR")
+    plt.plot(a,e,'y',label="SFR")
     plt.title("types vs year Graph")
     plt.ylabel("cases per thousand")
     plt.xlabel("Years")
@@ -250,15 +256,14 @@ def maleriatype(e):
     bar1.get_tk_widget().pack()
 
     def data():
-        t1 = Toplevel()
+        t1=Toplevel()
         t1.minsize(700, 500)
 
-        pass
 
+        pass
     Button(f4, text="SHOW DATA", command=data).grid(row=2, column=4, columnspan=2, padx=25)
 
     pass
-
 
 def createtable():
     connection = sqlite3.connect("mytables5.db")
@@ -270,7 +275,6 @@ def createtable():
     connection.commit()
     connection.close()
 
-
 def f2f4destroy(event):
     t = event.widget.cget("text")
     f2 = Frame(root, background="pink", width=10, height=100, borderwidth=6, relief=SUNKEN)
@@ -279,7 +283,7 @@ def f2f4destroy(event):
     if (t == "COVID"):
         b1 = Button(f2, text=" STATE ", bg="white")
         b1.pack(pady=50)
-        b1.bind("<Button-1>", triel)
+        b1.bind("<Button-1>",triel)
         b2 = Button(f2, text="LITRACY", bg="white")
         b2.pack(pady=50)
         b2.bind("<Button-1>")
@@ -298,11 +302,11 @@ def f2f4destroy(event):
 
         b2 = Button(f2, text="2020 PREDIC.", bg="white")
         b2.pack(pady=50)
-        b2.bind("<Button-1>")
+        b2.bind("<Button-1>" )
 
         b3 = Button(f2, text="POPULATION", bg="white")
         b3.pack(pady=50)
-        b3.bind("<Button-1>")
+        b3.bind("<Button-1>" )
 
     elif (t == "MALERIA"):
         b1 = Button(f2, text="DATA", bg="white")
@@ -311,11 +315,11 @@ def f2f4destroy(event):
 
         b2 = Button(f2, text="GRAPHS", bg="white")
         b2.pack(pady=50)
-        b2.bind("<Button-1>", maleriagraph)
+        b2.bind("<Button-1>",maleriagraph)
 
         b3 = Button(f2, text="POPULATION", bg="white")
         b3.pack(pady=50)
-        b3.bind("<Button-1>", maleriapopulation)
+        b3.bind("<Button-1>",maleriapopulation)
 
         b3 = Button(f2, text="Types", bg="white")
         b3.pack(pady=50)
@@ -371,6 +375,7 @@ try:
 
 except Exception as e:
     print(e)
+
 
     b1 = Button(f1, text="COVID", bg="white")
     b1.pack(pady=25, padx=10, anchor="w")
@@ -487,4 +492,5 @@ except Exception as e:
     b6.bind("<Return>", f2f4destroy)
 
     b1.focus()
+#its time to reveal
 root.mainloop()
