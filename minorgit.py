@@ -149,6 +149,36 @@ def denguedata(e):
     f4.destroy()
     denguedata1(e)
 
+def ruraloutbr1(e):
+    global f3
+    global f4
+    f3 = Frame(root, background="bisque", width=100, height=150, borderwidth=6, relief=SUNKEN)
+    f3.grid(row=0, column=2, rowspan=2, sticky="nsew")
+    f4 = Frame(root, background="pink", width=100, height=100, borderwidth=6, relief=SUNKEN)
+    f4.grid(row=1, column=2, sticky="nsew")
+
+    denguerural=[22,30,80,43,28,110,90]
+    anualrainfall=[1200,1100,1000,1250,1050,950,1000]
+    year=[2010,2011,2012,2013,2014,2015,2016]
+    fig,ax=plt.subplots(figsize=(8,4))
+    ax.plot(year,denguerural,'r',marker='o')
+    ax2=ax.twinx()
+    ax2.plot(year,anualrainfall,'b',marker='D')
+    ax.set_xlabel("Years")
+    ax.set_ylabel("Dengue rural outbreak", color="red")
+    ax2.set_ylabel("ARM  (in mm)",color="blue",fontsize=14)
+    bar1 = FigureCanvasTkAgg(fig, f3)
+    bar1.get_tk_widget().pack(fill="both")
+    l6 = Label(f4, text="In this graph we have compare rural outbreak of dengue with respect\n to  India  area-weighted average rainfall (ARF) \nBetween the year 2010 - 2016.It is observed that the number of outbreak\nincreased over years along with a decrease in the amount of annual rainfall(ARF).\nThe Pearson's correlation coefficient was r = −0.732, indicated a strong \nnegative correlation between ARF and number of rural outbreaks.", padx=5)
+    l6.pack(side="bottom",fill="both")
+    l6.config(font=("Courier", 18))
+
+def ruraloutbr(e):
+    f3.destroy()
+    f4.destroy()
+    ruraloutbr1(e)
+
+
 def maleriagraph1(e):
     global f3
     global f4
@@ -437,9 +467,9 @@ def f2f4destroy(event):
         b1.pack(pady=50)
         b1.bind("<Button-1>", denguedata)
 
-        b2 = Button(f2, text="2020 PREDIC.", bg="white")
+        b2 = Button(f2, text="RURAL OUTBR.", bg="white")
         b2.pack(pady=50)
-        b2.bind("<Button-1>" )
+        b2.bind("<Button-1>" ,ruraloutbr)
 
         b3 = Button(f2, text="POPULATION", bg="white")
         b3.pack(pady=50)
