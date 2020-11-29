@@ -38,10 +38,120 @@ root.grid_rowconfigure(0, weight=3)
 root.grid_rowconfigure(1, weight=1)
 
 
+def denguedata1(e):
+    global f3
+    global f4
+    f3 = Frame(root, background="bisque", width=100, height=150, borderwidth=6, relief=SUNKEN)
+    f3.grid(row=0, column=2, rowspan=2, sticky="nsew")
+    f4 = Frame(root, background="pink", width=100, height=100, borderwidth=6, relief=SUNKEN)
+    f4.grid(row=1, column=2, sticky="nsew")
+
+    treev = ttk.Treeview(f3, selectmode='browse')
+    treev.pack(fill=BOTH)
+    scrollbar = ttk.Scrollbar(f3, orient='horizontal', command=treev.xview)
+    scrollbar.pack(side=BOTTOM, fill=X)
+    treev["columns"] = ("1", "2", "3", "4", "5", "6", "7","8","9","10","11","12","13","14","15","16")
+    treev.configure(xscrollcommand=scrollbar.set)
+    # Defining heading
+    treev['show'] = 'headings'
+
+    # Assigning the width and anchor to  the
+    # respective columns
+    treev.column("1", width=200, anchor='c')
+    treev.column("2", width=55, anchor='c')
+    treev.column("3", width=55, anchor='c')
+    treev.column("4", width=55, anchor='c')
+    treev.column("5", width=55, anchor='c')
+    treev.column("6", width=55, anchor='c')
+    treev.column("7", width=55, anchor='c')
+    treev.column("8", width=55, anchor='c')
+    treev.column("9", width=55, anchor='c')
+    treev.column("10", width=55, anchor='c')
+    treev.column("11", width=55, anchor='c')
+    treev.column("12", width=80, anchor='c')
+    treev.column("13", width=55, anchor='c')
+    treev.column("14", width=55, anchor='c')
+    treev.column("15", width=55, anchor='c')
+    treev.column("16", width=50, anchor='c')
+
+    # Assigning the heading names to the
+    # respective columns
+    treev.heading("1", text="AFFECTED STATE")
+    treev.heading("2", text="2013")
+    treev.heading("3", text="2013")
+    treev.heading("4", text="2014")
+    treev.heading("5", text="2014")
+    treev.heading("6", text="2015")
+    treev.heading("7", text="2015")
+    treev.heading("8", text="2016")
+    treev.heading("9", text="2016")
+    treev.heading("10", text="2017")
+    treev.heading("11", text="2017")
+    treev.heading("12", text="2018")
+    treev.heading("13", text="2018")
+    treev.heading("14", text="2019")
+    treev.heading("15", text="2019")
+    df1=pd.read_csv("dengue 13-19.csv")
+    q = []
+    for i in range(0, len(df1)):
+        q.append(list(df1.iloc[i, :]))
+    sume=[75800,40565,99913,129166,188401,101192,157315]
+    year=[2013,2014,2015,2016,2017,2018,2019]
+    for w in range(0,len(q)):
+        q[w][1]=int(q[w][1])
+        q[w][3]=int(q[w][3])
+        q[w][5]=int(q[w][5])
+        q[w][7] = int(q[w][7])
+        q[w][9] = int(q[w][9])
+        q[w][11] = int(q[w][11])
+        q[w][13] = int(q[w][13])
 
 
 
-def maleriagraph(e):
+    for i in q:
+        treev.insert("", 'end', values=i)
+    er = plt.figure(figsize=(5,2))
+    plt.plot(year,sume,'r',marker='D')
+    plt.title("cases every year")
+    plt.ylabel("cases")
+    plt.xlabel("Years")
+    plt.legend()
+    bar12 = FigureCanvasTkAgg(er, f4)
+    bar12.get_tk_widget().pack(fill="both")
+    def clickedrow(e):
+        item = treev.identify_row(e.y)
+        a = treev.item(item, 'values')
+        a = list(a)
+        sume=[]
+        sume.append(a[1])
+        sume.append(a[3])
+        sume.append(a[5])
+        sume.append(a[7])
+        sume.append(a[9])
+        sume.append(a[11])
+        sume.append(a[13])
+        print(sume)
+        k=plt.figure()
+        sume=list(map(int,sume))
+        plt.plot(year,sume,'r',marker='d')
+        plt.title(f'''{a[0]} cases every year''')
+        plt.ylabel("cases")
+        plt.xlabel("Years")
+        k.show()
+        pass
+    treev.bind('<Double-Button-1>',clickedrow)
+
+
+
+    pass
+def denguedata(e):
+    f3.destroy()
+    f4.destroy()
+    denguedata1(e)
+
+def maleriagraph1(e):
+    global f3
+    global f4
     f3 = Frame(root, background="bisque", width=100, height=100, borderwidth=6, relief=SUNKEN)
     f3.grid(row=0, column=2, sticky="nsew")
     f4 = Frame(root, background="pink", width=100, height=100, borderwidth=6, relief=SUNKEN)
@@ -86,8 +196,14 @@ def maleriagraph(e):
 
     pass
 
-def maleriadata(e):
+def maleriagraph(e):
+    f3.destroy()
+    f4.destroy()
+    maleriagraph1(e)
 
+def maleriadata1(e):
+    global f3
+    global f4
     f3 = Frame(root, background="bisque", width=100,height=150, borderwidth=6, relief=SUNKEN)
     f3.grid(row=0, column=2, rowspan=2,sticky="nsew")
     f4 = Frame(root, background="pink", width=100, height=100, borderwidth=6, relief=SUNKEN)
@@ -182,8 +298,16 @@ def maleriadata(e):
 
     pass
 
-def maleriapopulation(e):
 
+def maleriadata(e):
+
+    f3.destroy()
+    f4.destroy()
+    maleriadata1(e)
+
+def maleriapopulation1(e):
+    global f3
+    global f4
 
     tsmg.showinfo("Note","Population is shown in 100 million while maleria & p falciparum are shown in million")
 
@@ -224,12 +348,20 @@ def maleriapopulation(e):
         f4.destroy()
     root.bind('<Double-Button-1>',esc)
 
+def maleriapopulation(e):
+
+    f3.destroy()
+    f4.destroy()
+    maleriapopulation1(e)
 
 def triel(e):
     f3.grid_forget()
     pass
 
-def maleriatype(e):
+
+def maleriatype1(e):
+    global f3
+    global f4
     f3 = Frame(root, background="bisque", width=100, height=100, borderwidth=6, relief=SUNKEN)
     f3.grid(row=0, column=2, sticky="nsew")
     f4 = Frame(root, background="pink", width=100, height=100, borderwidth=6, relief=SUNKEN)
@@ -265,6 +397,11 @@ def maleriatype(e):
 
     pass
 
+def maleriatype(e):
+    f3.destroy()
+    f4.destroy()
+    maleriatype1(e)
+
 def createtable():
     connection = sqlite3.connect("mytables5.db")
     cursor = connection.cursor()
@@ -296,9 +433,9 @@ def f2f4destroy(event):
 
 
     elif (t == "DENGUE"):
-        b1 = Button(f2, text="STATE WISE", bg="white")
+        b1 = Button(f2, text="STATE DATA", bg="white")
         b1.pack(pady=50)
-        b1.bind("<Button-1>", )
+        b1.bind("<Button-1>", denguedata)
 
         b2 = Button(f2, text="2020 PREDIC.", bg="white")
         b2.pack(pady=50)
