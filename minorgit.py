@@ -183,10 +183,24 @@ def ruraloutbr(e):
 def denguenorth1(e):
     global f3
     global f4
+    tsmg.showinfo("Note","red denote dengue cases \n green denote ARM")
     f3 = Frame(root, background="bisque", width=100, height=150, borderwidth=6, relief=SUNKEN)
     f3.grid(row=0, column=2, rowspan=3, sticky="nsew")
     f4 = Frame(root, background="pink")
     f4.grid(row=2, column=2, sticky="nsew")
+    fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2,figsize=(11,9))
+    punjabdengue=[4117,472,14128,10439,15398]
+    year=[2013,2014,2015,2016,2017]
+    pnjavavm=[586.6,382.7,510.8,444,497.5]
+    ax1.plot(year,punjabdengue,'r',marker='d')
+    ax1.set_ylabel("dengue cases")
+    ax1.set_title("punjab")
+    ax1a=ax1.twinx()
+    ax1a.set_ylabel("ARM")
+    ax1a.plot(year,pnjavavm,'g',marker='d')
+    bar1 = FigureCanvasTkAgg(fig, f3)
+    bar1.get_tk_widget().pack(fill="both")
+
     pass
 
 
@@ -440,7 +454,7 @@ def rainfalldata1(e):
     treev.heading("5", text="MAM")
     treev.heading("6", text="JJAS")
     treev.heading("7", text="OND")
-    df=pd.read_csv("rainfall.csv")
+    df=pd.read_csv("rainfall10-17.csv")
     q = []
     for i in range(0, len(df)):
         q.append(list(df.iloc[i, :]))
