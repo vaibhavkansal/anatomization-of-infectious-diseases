@@ -268,7 +268,7 @@ def maleriadata1(e):
     treev.heading("5", text="Pf %")
     treev.heading("6", text="API")
     treev.heading("7", text="Deaths")
-    df = pd.read_csv("/Users/vaibhavkansal/PycharmProjects/minor/maleria pdf.csv")
+    df = pd.read_csv("maleria pdf.csv")
     q=[]
     for i in range(0,len(df)):
         q.append(list(df.iloc[i,:]))
@@ -388,6 +388,57 @@ def triel(e):
     f3.grid_forget()
     pass
 
+def rainfalldata1(e):
+    global f3
+    global f4
+    f3 = Frame(root, background="bisque", width=100, height=150, borderwidth=6, relief=SUNKEN)
+    f3.grid(row=0, column=2, rowspan=3, sticky="nsew")
+    f4 = Frame(root, background="pink")
+    f4.grid(row=2, column=2, sticky="nsew")
+    treev = ttk.Treeview(f3, selectmode='browse',height=50)
+    treev.pack(fill=BOTH)
+    scrollbar = ttk.Scrollbar(f3, orient='horizontal', command=treev.xview)
+    scrollbar.pack(side=BOTTOM, fill=X)
+    treev["columns"] = ("1", "2", "3", "4", "5", "6", "7")
+    treev.configure(xscrollcommand=scrollbar.set)
+    # Defining heading
+    treev['show'] = 'headings'
+
+    # Assigning the width and anchor to  the
+    # respective columns
+    treev.column("1", width=200, anchor='c')
+    treev.column("2", width=100, anchor='c')
+    treev.column("3", width=100, anchor='c')
+    treev.column("4", width=50, anchor='c')
+    treev.column("5", width=50, anchor='c')
+    treev.column("6", width=50, anchor='c')
+    treev.column("7", width=50, anchor='c')
+
+    # Assigning the heading names to the
+    # respective columns
+    treev.heading("1", text="SUBDIVISION")
+    treev.heading("2", text="YEAR")
+    treev.heading("3", text="ANNUAL")
+    treev.heading("4", text="JF")
+    treev.heading("5", text="MAM")
+    treev.heading("6", text="JJAS")
+    treev.heading("7", text="OND")
+    df=pd.read_csv("rainfall.csv")
+    q = []
+    for i in range(0, len(df)):
+        q.append(list(df.iloc[i, :]))
+
+    for i in q:
+        treev.insert("", 'end', values=i)
+
+    pass
+
+def rainfalldata(e):
+    f3.destroy()
+    f4.destroy()
+    rainfalldata1(e)
+    pass
+
 
 def maleriatype1(e):
     global f3
@@ -474,6 +525,10 @@ def f2f4destroy(event):
         b3 = Button(f2, text="POPULATION", bg="white")
         b3.pack(pady=50)
         b3.bind("<Button-1>" )
+
+        b4 = Button(f2, text="RAINFALL DATA", bg="white")
+        b4.pack(pady=50)
+        b4.bind("<Button-1>", rainfalldata)
 
     elif (t == "MALERIA"):
         b1 = Button(f2, text="DATA", bg="white")
