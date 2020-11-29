@@ -38,6 +38,7 @@ root.grid_rowconfigure(0, weight=3)
 root.grid_rowconfigure(1, weight=1)
 
 
+
 def denguedata1(e):
     global f3
     global f4
@@ -46,7 +47,7 @@ def denguedata1(e):
     f4 = Frame(root, background="pink", width=100, height=100, borderwidth=6, relief=SUNKEN)
     f4.grid(row=1, column=2, sticky="nsew")
 
-    treev = ttk.Treeview(f3, selectmode='browse')
+    treev = ttk.Treeview(f3, selectmode='browse',height=16)
     treev.pack(fill=BOTH)
     scrollbar = ttk.Scrollbar(f3, orient='horizontal', command=treev.xview)
     scrollbar.pack(side=BOTTOM, fill=X)
@@ -177,6 +178,22 @@ def ruraloutbr(e):
     f3.destroy()
     f4.destroy()
     ruraloutbr1(e)
+
+
+def denguenorth1(e):
+    global f3
+    global f4
+    f3 = Frame(root, background="bisque", width=100, height=150, borderwidth=6, relief=SUNKEN)
+    f3.grid(row=0, column=2, rowspan=3, sticky="nsew")
+    f4 = Frame(root, background="pink")
+    f4.grid(row=2, column=2, sticky="nsew")
+    pass
+
+
+def denguenorth(e):
+    f3.destroy()
+    f4.destroy()
+    denguenorth1(e)
 
 
 def maleriagraph1(e):
@@ -522,9 +539,9 @@ def f2f4destroy(event):
         b2.pack(pady=50)
         b2.bind("<Button-1>" ,ruraloutbr)
 
-        b3 = Button(f2, text="POPULATION", bg="white")
+        b3 = Button(f2, text="NORTH IND.", bg="white")
         b3.pack(pady=50)
-        b3.bind("<Button-1>" )
+        b3.bind("<Button-1>", denguenorth)
 
         b4 = Button(f2, text="RAINFALL DATA", bg="white")
         b4.pack(pady=50)
