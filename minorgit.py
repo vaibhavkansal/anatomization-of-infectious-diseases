@@ -38,6 +38,7 @@ root.grid_rowconfigure(0, weight=3)
 root.grid_rowconfigure(1, weight=1)
 
 
+
 def denguedata1(e):
     global f3
     global f4
@@ -46,7 +47,7 @@ def denguedata1(e):
     f4 = Frame(root, background="pink", width=100, height=100, borderwidth=6, relief=SUNKEN)
     f4.grid(row=1, column=2, sticky="nsew")
 
-    treev = ttk.Treeview(f3, selectmode='browse')
+    treev = ttk.Treeview(f3, selectmode='browse',height=16)
     treev.pack(fill=BOTH)
     scrollbar = ttk.Scrollbar(f3, orient='horizontal', command=treev.xview)
     scrollbar.pack(side=BOTTOM, fill=X)
@@ -177,6 +178,36 @@ def ruraloutbr(e):
     f3.destroy()
     f4.destroy()
     ruraloutbr1(e)
+
+
+def denguenorth1(e):
+    global f3
+    global f4
+    tsmg.showinfo("Note","red denote dengue cases \n green denote ARM")
+    f3 = Frame(root, background="bisque", width=100, height=150, borderwidth=6, relief=SUNKEN)
+    f3.grid(row=0, column=2, rowspan=3, sticky="nsew")
+    f4 = Frame(root, background="pink")
+    f4.grid(row=2, column=2, sticky="nsew")
+    fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2,figsize=(11,9))
+    punjabdengue=[4117,472,14128,10439,15398]
+    year=[2013,2014,2015,2016,2017]
+    pnjavavm=[586.6,382.7,510.8,444,497.5]
+    ax1.plot(year,punjabdengue,'r',marker='d')
+    ax1.set_ylabel("dengue cases")
+    ax1.set_title("punjab")
+    ax1a=ax1.twinx()
+    ax1a.set_ylabel("ARM")
+    ax1a.plot(year,pnjavavm,'g',marker='d')
+    bar1 = FigureCanvasTkAgg(fig, f3)
+    bar1.get_tk_widget().pack(fill="both")
+
+    pass
+
+
+def denguenorth(e):
+    f3.destroy()
+    f4.destroy()
+    denguenorth1(e)
 
 
 def maleriagraph1(e):
@@ -423,7 +454,7 @@ def rainfalldata1(e):
     treev.heading("5", text="MAM")
     treev.heading("6", text="JJAS")
     treev.heading("7", text="OND")
-    df=pd.read_csv("rainfall.csv")
+    df=pd.read_csv("rainfall10-17.csv")
     q = []
     for i in range(0, len(df)):
         q.append(list(df.iloc[i, :]))
@@ -522,9 +553,9 @@ def f2f4destroy(event):
         b2.pack(pady=50)
         b2.bind("<Button-1>" ,ruraloutbr)
 
-        b3 = Button(f2, text="POPULATION", bg="white")
+        b3 = Button(f2, text="NORTH IND.", bg="white")
         b3.pack(pady=50)
-        b3.bind("<Button-1>" )
+        b3.bind("<Button-1>", denguenorth)
 
         b4 = Button(f2, text="RAINFALL DATA", bg="white")
         b4.pack(pady=50)
