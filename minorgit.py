@@ -815,7 +815,7 @@ def f2f4destroy(event):
         b3.pack(pady=50)
         b3.bind("<Button-1>",maleriapopulation)
 
-        b3 = Button(f2, text="Types", bg="white")
+        b3 = Button(f2, text="Analyse", bg="white")
         b3.pack(pady=50)
         b3.bind("<Button-1>", maleriatype)
 
