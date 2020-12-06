@@ -106,6 +106,7 @@ def coviddevloped1(e):
     l7.pack()
     l6.config(font=("Courier", 22))
     l7.config(font=("Courier", 22))
+    #pass all the world ,just a git check
 
     pass
 
