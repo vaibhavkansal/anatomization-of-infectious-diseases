@@ -37,6 +37,169 @@ root.grid_columnconfigure(2, weight=10)
 root.grid_rowconfigure(0, weight=3)
 root.grid_rowconfigure(1, weight=1)
 
+def coviddata1(e):
+    global f3
+    global f4
+    f3 = Frame(root, background="bisque", width=100, height=150, borderwidth=6, relief=SUNKEN)
+    f3.grid(row=0, column=2, rowspan=2, sticky="nsew")
+    f4 = Frame(root, background="pink", width=100, height=100, borderwidth=6, relief=SUNKEN)
+    f4.grid(row=2, column=2, sticky="nsew")
+
+    pass
+
+def coviddata(e):
+    f3.destroy()
+    f4.destroy()
+    coviddata1(e)
+
+
+def coviddevloped1(e):
+    global f3
+    global f4
+    f3 = Frame(root, background="bisque", width=100, height=180, borderwidth=6, relief=SUNKEN)
+    f3.grid(row=0, column=2, rowspan=2, sticky="nsew")
+    f4 = Frame(root, background="pink", width=100, borderwidth=6, relief=SUNKEN)
+    f4.grid(row=1, column=2, sticky="nsew")
+    df = pd.read_csv(r"covidfinaldata.csv")
+    fig = plt.figure(figsize=(9,4.5))
+    y1 = list(df.iloc[25368:25701, 12])
+    plt.plot(y1, color="red", label="Developing Country")
+    # pakistan
+    y3 = list(df.iloc[42194:42527, 12])
+    plt.plot(y3, color="red")
+    # russia
+    y7 = list(df.iloc[45883:46216, 12])
+    plt.plot(y7, color="red")
+    # philippines
+    y8 = list(df.iloc[43058:43391, 12])
+    plt.plot(y8, color="red")
+
+    # mexico
+    y10 = list(df.iloc[35344:35677, 12])
+    plt.plot(y10, color="red")
+
+    # developed
+    # case per million population us
+    z1 = list(df.iloc[55350:55683, 12])
+    plt.plot(z1, color="yellow", label="Developed Country")
+    # ireland
+    z2 = list(df.iloc[25701:26034, 12])
+    plt.plot(z2, color="yellow")
+    # germany
+    z3 = list(df.iloc[13875:14208, 12])
+    plt.plot(z3, color="yellow")
+    # australia
+    z4 = list(df.iloc[40529:40862, 12])
+    plt.plot(z4, color="yellow")
+    # norway
+    z5 = list(df.iloc[40862:41195, 12])
+    plt.plot(z5, color="yellow")
+    plt.title('Developed Countries vs Developing Countries ')
+    plt.xlabel('Days(from 01-01-2020)')
+    plt.ylabel('New Cases Per Million')
+    plt.legend()
+    bar1 = FigureCanvasTkAgg(fig, f3)
+    bar1.get_tk_widget().pack()
+    l6=Label(f4,text="devloped -> us,ireland,germany,australia,norway")
+    l6.pack()
+    l7=Label(f4,text="devloping -> pakistan,russia,philippines,mexico,india")
+    l7.pack()
+    l6.config(font=("Courier", 22))
+    l7.config(font=("Courier", 22))
+
+    pass
+
+def coviddevloped(e):
+    f3.destroy()
+    f4.destroy()
+    coviddevloped1(e)
+
+
+def covidnewcases1(e):
+    global f3
+    global f4
+    f3 = Frame(root, background="bisque", width=100, height=150, borderwidth=6, relief=SUNKEN)
+    f3.grid(row=0, column=2, rowspan=2, sticky="nsew")
+    f4 = Frame(root, background="pink", width=100, height=100, borderwidth=6, relief=SUNKEN)
+    f4.grid(row=1, column=2, sticky="nsew")
+    df = pd.read_csv(r"covidfinaldata.csv")
+    # reading new cases in india
+    z = list(df.iloc[25368:25701, 6])
+    # test
+    z2 = list(df.iloc[25368:25701, 29])
+    p = []
+    for i in range(0, 333):
+        p.append(i)
+    fig = plt.figure(figsize=(9,4.5))
+    plt.bar(p, z, color="red")
+    plt.title('NEW CASES IN INDIA VS NO OF DAYS ')
+    plt.xlabel('Days(from 01-01-2020)')
+    plt.ylabel('New Cases Per Million')
+    bar1 = FigureCanvasTkAgg(fig, f3)
+    bar1.get_tk_widget().pack()
+    l6 = Label(f4, text="experts says second wave is expected in which cases will increase ")
+    l6.pack()
+    l6.config(font=("Courier", 22))
+    pass
+
+def covidnewcases(e):
+    f3.destroy()
+    f4.destroy()
+    covidnewcases1(e)
+
+def covidlockdown1(e):
+    global f3
+    global f4
+    f3 = Frame(root, background="bisque", width=100, height=150, borderwidth=6, relief=SUNKEN)
+    f3.grid(row=0, column=2, sticky="nsew")
+    f4 = Frame(root, background="pink", width=100, borderwidth=6, relief=SUNKEN)
+    f4.grid(row=1, column=2, sticky="nsew")
+    df = pd.read_csv(r"covidfinaldata.csv")
+    y = list(df.iloc[25368:25701, 4])
+    fig = plt.figure(figsize=(9,4.5))
+    plt.plot(y)
+    plt.title('Total Cases In India vs Lockdown')
+    plt.xlabel('Days(from 01-01-2020)')
+    plt.ylabel('Cases In Million')
+    y = [-1000000, 1000000]
+    l1 = [85, 85]
+    l2 = [106, 106]
+    l3 = [125, 125]
+    l4 = [139, 139]
+    ul1 = [153, 153]
+    ul2 = [183, 183]
+    ul3 = [214, 214]
+    ul4 = [245, 245]
+    ul5 = [275, 275]
+    ul6 = [306, 306]
+    plt.plot(l1, y, label="Lockdown 1(Day85)")
+    plt.plot(l2, y, label="Lockdown 2(Day106)")
+    plt.plot(l3, y, label="Lockdown 3(Day125)")
+    plt.plot(l4, y, label="Lockdown 4(Day139)")
+    plt.plot(ul1, y, label="UnLock 1(Day153)")
+    plt.plot(ul2, [-1000000, 2000000], label="UnLock 2(Day183)")
+    plt.plot(ul3, [-1000000, 3000000], label="UnLock 3(Day214)")
+    plt.plot(ul4, [-1000000, 5000000], label="UnLock 4(Day245)")
+    plt.plot(ul5, [-1000000, 8000000], label="UnLock 5(Day275)")
+    plt.plot(ul6, [-1000000, 9000000], label="UnLock 6(Day306)")
+    plt.legend()
+    bar1 = FigureCanvasTkAgg(fig, f3)
+    bar1.get_tk_widget().pack()
+    l6 = Label(f4, text="This graph shows that as the day's passes people \n are becoming careless towards corona")
+    l6.pack()
+    l6.config(font=("Courier", 22))
+
+
+
+pass
+
+def covidlockdown(e):
+    f3.destroy()
+    f4.destroy()
+    covidlockdown1(e)
+
+
+
 
 
 def denguedata1(e):
@@ -145,6 +308,7 @@ def denguedata1(e):
 
 
     pass
+
 def denguedata(e):
     f3.destroy()
     f4.destroy()
@@ -183,23 +347,45 @@ def ruraloutbr(e):
 def denguenorth1(e):
     global f3
     global f4
-    tsmg.showinfo("Note","red denote dengue cases \n green denote ARM")
+    tsmg.showinfo("Note","Bar denote dengue cases \n green denote ARM")
     f3 = Frame(root, background="bisque", width=100, height=150, borderwidth=6, relief=SUNKEN)
     f3.grid(row=0, column=2, rowspan=3, sticky="nsew")
     f4 = Frame(root, background="pink")
     f4.grid(row=2, column=2, sticky="nsew")
-    fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2,figsize=(11,9))
+    fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2,figsize=(9,9))
     punjabdengue=[4117,472,14128,10439,15398]
     year=[2013,2014,2015,2016,2017]
     pnjavavm=[586.6,382.7,510.8,444,497.5]
-    ax1.plot(year,punjabdengue,'r',marker='d')
+    ax1.bar(year,punjabdengue)
     ax1.set_ylabel("dengue cases")
     ax1.set_title("punjab")
     ax1a=ax1.twinx()
-    ax1a.set_ylabel("ARM")
-    ax1a.plot(year,pnjavavm,'g',marker='d')
-    bar1 = FigureCanvasTkAgg(fig, f3)
-    bar1.get_tk_widget().pack(fill="both")
+    ax1a.plot(year,pnjavavm,'r',marker='d')
+    Odishadengue=[ 7132, 6433, 2450, 8380, 4158]
+    ordishaarm=[1632.4,1536.9,1210.1,1253.5	,1344.5]
+    ax2.bar(year, Odishadengue)
+    ax2.set_title("odisha")
+    ax2a = ax2.twinx()
+    ax2a.set_ylabel("ARM")
+    ax2a.plot(year, ordishaarm, 'r', marker='d')
+    Delhidengue =[5574, 995, 15867, 4431, 9271]
+    delhiarm=[461.5,305.5,435.,398.8,421.6]
+    ax3.bar(year, Delhidengue)
+    ax3.set_ylabel("dengue cases")
+    ax3.set_title("Delhi")
+    ax3a = ax3.twinx()
+    ax3a.plot(year, delhiarm, 'r', marker='d')
+    HimachalPradeshdengue=[89,  20, 19, 322, 452]
+    HimachalPradesharm=[1211.9,1008.7,1210.5,921.5,1182.2]
+    ax4.bar(year, HimachalPradeshdengue)
+    ax4.set_title("Himachal pradesh")
+    ax4a = ax4.twinx()
+    ax4a.set_ylabel("ARM")
+    ax4a.plot(year, HimachalPradesharm, 'r', marker='d')
+    Label(f4, text=" From graph we can se that in northon india their are mostly positive association between ARM and Dengue cases", bg="pink").pack()
+
+    bar2 = FigureCanvasTkAgg(fig, f3)
+    bar2.get_tk_widget().pack(fill="both")
 
     pass
 
@@ -208,6 +394,56 @@ def denguenorth(e):
     f3.destroy()
     f4.destroy()
     denguenorth1(e)
+
+def denguepeninsular1(e):
+    global f3
+    global f4
+    tsmg.showinfo("Note", "Bar denote dengue cases \n green denote ARM")
+    f3 = Frame(root, background="bisque", width=100, height=150, borderwidth=6, relief=SUNKEN)
+    f3.grid(row=0, column=2, rowspan=3, sticky="nsew")
+    f4 = Frame(root, background="pink")
+    f4.grid(row=2, column=2, sticky="nsew")
+    fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2,figsize=(9,9))
+    tamilarm=[741.9,913.0,1204.6,535.0,973.0]
+    year=[2013,2014,2015,2016,2017]
+    TamilNadudengue=[ 6122, 2804,  4535, 2531, 23294]
+    ax1.bar(year,TamilNadudengue)
+    ax1.set_ylabel("dengue cases")
+    ax1.set_title("Tamil nadu")
+    ax1a=ax1.twinx()
+    ax1a.plot(year,tamilarm,'r',marker='d')
+    karnatkadengu = [6408,3358,5077,6083,17844]
+    karnatkaarm=[5213.9,5912.3,4921.9,3408.3,3270.3]
+    year=[2013,2014,2015,2016,2017]
+    ax2.bar(year, karnatkadengu)
+    ax2.set_title("Karnatka")
+    ax2a = ax2.twinx()
+    ax2a.set_ylabel("ARM")
+    ax2a.plot(year, karnatkaarm, 'r', marker='d')
+    keraladengue = [7938,2575,4075,7439,19994]
+    keralaamu=[3255.4,3046.4,2600.6,1870.9,2664.9]
+    ax3.bar(year, keraladengue)
+    ax3.set_ylabel("dengue cases")
+    ax3.set_title("kerala")
+    ax3a = ax3.twinx()
+    ax3a.plot(year, keralaamu, 'r', marker='d')
+
+    gujratdengu=[6272,2320,5590,8028,4753]
+    gujratarm=[7134.4,4836.5,4567.8,4451.0,5123.6]
+    ax4.bar(year,gujratdengu )
+    ax4.set_title("Gujrat")
+    ax4a = ax4.twinx()
+    ax4a.set_ylabel("ARM")
+    ax4a.plot(year, gujratarm, 'r', marker='d')
+    Label(f4, text=" From graph we can se that in peninsular india their are mostly negative association between ARM and Dengue cases", bg="pink").pack()
+
+    bar2 = FigureCanvasTkAgg(fig, f3)
+    bar2.get_tk_widget().pack(fill="both")
+
+def denguepeninsular(e):
+    f3.destroy()
+    f4.destroy()
+    denguepeninsular1(e)
 
 
 def maleriagraph1(e):
@@ -530,18 +766,18 @@ def f2f4destroy(event):
     f2.grid(row=0, column=1, sticky="nsew", rowspan=2)
 
     if (t == "COVID"):
-        b1 = Button(f2, text=" STATE ", bg="white")
+        b1 = Button(f2, text="    DATA    ", bg="white")
         b1.pack(pady=50)
-        b1.bind("<Button-1>",triel)
-        b2 = Button(f2, text="LITRACY", bg="white")
+        b1.bind("<Button-1>",coviddata)
+        b2 = Button(f2, text="Devped VS dev", bg="white")
         b2.pack(pady=50)
-        b2.bind("<Button-1>")
-        b3 = Button(f2, text="POPULATION", bg="white")
+        b2.bind("<Button-1>",coviddevloped)
+        b3 = Button(f2, text="NEW CASES", bg="white")
         b3.pack(pady=50)
-        b3.bind("<Button-1>")
-        b4 = Button(f2, text="AGE RATIO", bg="white")
+        b3.bind("<Button-1>",covidnewcases)
+        b4 = Button(f2, text="LOCK ANA.", bg="white")
         b4.pack(pady=50)
-        b4.bind("<Button-1>")
+        b4.bind("<Button-1>",covidlockdown)
 
 
     elif (t == "DENGUE"):
@@ -557,9 +793,13 @@ def f2f4destroy(event):
         b3.pack(pady=50)
         b3.bind("<Button-1>", denguenorth)
 
-        b4 = Button(f2, text="RAINFALL DATA", bg="white")
+        b4 = Button(f2, text="Peninsular STA.", bg="white")
         b4.pack(pady=50)
-        b4.bind("<Button-1>", rainfalldata)
+        b4.bind("<Button-1>", denguepeninsular)
+
+        b5 = Button(f2, text="RAINFALL DATA", bg="white")
+        b5.pack(pady=50)
+        b5.bind("<Button-1>", rainfalldata)
 
     elif (t == "MALERIA"):
         b1 = Button(f2, text="DATA", bg="white")
